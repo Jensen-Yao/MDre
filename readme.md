@@ -30,6 +30,7 @@ MDre 是一款面向 Windows、Android 和 Linux x64 的轻量级 Markdown / HTM
 - 支持 Markdown 表格、任务列表、代码高亮、公式、Mermaid 图和本地图片预览。
 - 支持 HTML 静态页面预览，并识别常见 Mermaid 片段。
 - 支持文档搜索、标题导航、最近文件、页面颜色切换和简单预览编辑。
+- 支持选中文本翻译，可配置百度翻译、DeepL 或 OpenAI 兼容模型 API。
 - 支持 Android 文件管理器打开、系统分享打开，以及通过分享面板转发文件。
 - 本地优先，无账号要求，无遥测。
 - Android 安装包约 5MB，适合日常轻量使用。
@@ -42,7 +43,7 @@ MDre 是一款面向 Windows、Android 和 Linux x64 的轻量级 Markdown / HTM
 - [Android APK](https://github.com/Jensen-Yao/MDre/releases)
 - [Linux x64 tar.gz](https://github.com/Jensen-Yao/MDre/releases)（Linux 版本：`0.1.2`）
 
-当前公开发布版本：`0.1.20`
+当前公开发布版本：`0.1.21`
 
 ## 开发者
 

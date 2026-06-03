@@ -30,6 +30,7 @@ The product follows common feature choices found in everyday Markdown reader sof
 - Renders Markdown tables, task lists, code highlighting, formulas, Mermaid diagrams, and local images.
 - Previews static HTML pages and recognizes common Mermaid snippets.
 - Supports document search, heading outline, recent files, page color switching, and simple preview editing.
+- Supports selected-text translation with Baidu Translate, DeepL, or OpenAI-compatible model APIs.
 - Supports Android file-manager opening, system share opening, and forwarding files through the share sheet.
 - Local-first, no account required, no telemetry.
 - Android package size is about 5 MB for lightweight everyday use.
@@ -42,7 +43,7 @@ Download the latest version from Releases:
 - [Android APK](https://github.com/Jensen-Yao/MDre/releases)
 - [Linux x64 tar.gz](https://github.com/Jensen-Yao/MDre/releases) (Linux version: `0.1.2`)
 
-Current public release: `0.1.20`
+Current public release: `0.1.21`
 
 ## Developer
 
