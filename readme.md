@@ -20,7 +20,7 @@ MDre 是一款轻量级 Markdown / HTML 阅读器，面向 Windows 和 Android �
 
 最新版 Windows 安装包和 Android APK 请在 Releases 页面下载。
 
-当前版本：v0.1.14
+当前版本：v0.1.16
 
 ## 开发者
 
