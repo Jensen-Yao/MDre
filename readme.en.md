@@ -40,9 +40,9 @@ Download the latest version from Releases:
 
 - [Windows installer](https://github.com/Jensen-Yao/MDre/releases)
 - [Android APK](https://github.com/Jensen-Yao/MDre/releases)
-- [Linux x64 tar.gz](https://github.com/Jensen-Yao/MDre/releases)
+- [Linux x64 tar.gz](https://github.com/Jensen-Yao/MDre/releases) (Linux version: `0.1.2`)
 
-Current public release: `0.1.16`
+Current public release: `0.1.17`
 
 ## Developer
 
