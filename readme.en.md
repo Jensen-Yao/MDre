@@ -43,7 +43,7 @@ Download the latest version from Releases:
 - [Android APK](https://github.com/Jensen-Yao/MDre/releases)
 - [Linux x64 tar.gz](https://github.com/Jensen-Yao/MDre/releases) (Linux version: `0.1.2`)
 
-Current public release: `0.1.21`
+Current public release: `0.1.22`
 
 ## Developer
 
