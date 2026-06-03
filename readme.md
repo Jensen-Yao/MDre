@@ -27,7 +27,7 @@ MDre 是一款面向 Windows、Android 和 Linux x64 的轻量级 Markdown / HTM
 ## 功能特点
 
 - 支持 Windows 桌面版和 Android 版。
-- 支持打开 `.markdown`、`.txt`、`.html`、`.htm` 等常见文件。
+- 支持打开 `.markdown`、`.txt`、`.html`、`.htm` 
 - 支持 Markdown 表格、任务列表、代码高亮、公式、Mermaid 图等常用内容预览。
 - 超出普通katex公式渲染，实际使用可渲染复杂公式超过VScode原生
 - 支持 HTML 静态页面预览，并识别常见 Mermaid 片段。
