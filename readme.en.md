@@ -26,14 +26,16 @@ The product follows common feature choices found in everyday Markdown reader sof
 
 ## Features
 
-- Opens common document formats including `.md`, `.markdown`, `.txt`, `.html`, and `.htm`.
-- Renders Markdown tables, task lists, code highlighting, formulas, Mermaid diagrams, and local images.
-- Previews static HTML pages and recognizes common Mermaid snippets.
-- Supports document search, heading outline, recent files, page color switching, and simple preview editing.
-- Supports selected-text translation with Baidu Translate, DeepL, or OpenAI-compatible model APIs.
-- Supports Android file-manager opening, system share opening, and forwarding files through the share sheet.
-- Local-first, no account required, no telemetry.
-- Android package size is about 5 MB for lightweight everyday use.
+- Supports opening common document formats including `.md`, `.markdown`, `.txt`, `.html` and `.htm`.
+- Features support for Markdown tables, task lists, code highlighting, mathematical formulas, Mermaid diagrams and local image preview.
+- Enables preview of static HTML pages and recognition of standard Mermaid snippets.
+- Improved KaTeX formula rendering performance, outperforming native VS Code.
+- Allows AI-powered querying, analysis and summarization of document content.
+- Comes with document search, heading navigation, recent files access, theme color switching and basic preview editing functions.
+- On Windows, selected text translation is available; APIs for Baidu Translate, DeepL and DeepSeek-compatible models can be configured, while the APK leverages native system translation capabilities.
+- Supports opening files via Android file manager and system sharing, as well as file forwarding through the share sheet.
+- Local-first design with no mandatory account registration and zero telemetry collection.
+- The Android installation package is around 5MB, ideal for lightweight daily usage.
 
 ## Download
 
@@ -43,7 +45,7 @@ Download the latest version from Releases:
 - [Android APK](https://github.com/Jensen-Yao/MDre/releases)
 - [Linux x64 tar.gz](https://github.com/Jensen-Yao/MDre/releases) (Linux version: `0.1.2`)
 
-Current public release: `0.1.22`
+Current public release: `0.1.24` 、 `1.0.0` 
 
 ## Developer
 
