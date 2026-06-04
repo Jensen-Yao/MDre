@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MDre 图片渲染压力测试</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 32px;
+      font-family: "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+      line-height: 1.55;
+      background: #fff;
+      color: #1f1b14;
+    }
+
+    main {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #d6ccba;
+      background: #f8f1df;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    figure {
+      margin: 0;
+    }
+
+    figcaption {
+      margin-top: 6px;
+      font-size: 13px;
+      color: #665d50;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>MDre HTML 图片渲染压力测试</h1>
+    <p>这个文件用于测试 HTML 模式下的本地相对图片、file URL、SVG 尺寸、破损图片、picture/source，以及包含空格、中文、括号、井号的文件名。</p>
+
+    <h2>图片网格</h2>
+    <section class="grid">
+      <figure>
+        <img src="image-render-stress-assets/normal.png" alt="普通图片">
+        <figcaption>normal.png</figcaption>
+      </figure>
+      <figure>
+        <img src="image-render-stress-assets/space name image.png" alt="空格文件名图片">
+        <figcaption>space name image.png</figcaption>
+      </figure>
+      <figure>
+        <img src="image-render-stress-assets/中文 图片.png" alt="中文文件名图片">
+        <figcaption>中文 图片.png</figcaption>
+      </figure>
+      <figure>
+        <img src="image-render-stress-assets/paren (1).png" alt="括号文件名图片">
+        <figcaption>paren (1).png</figcaption>
+      </figure>
+      <figure>
+        <img src="image-render-stress-assets/hash#image.png" alt="井号文件名图片">
+        <figcaption>hash#image.png</figcaption>
+      </figure>
+      <figure>
+        <img src="image-render-stress-assets/transparent-overlay.svg" alt="透明 SVG">
+        <figcaption>transparent-overlay.svg</figcaption>
+      </figure>
+    </section>
+
+    <h2>大尺寸 SVG</h2>
+    <p>下面分别测试超宽图和超长图，观察是否会撑破阅读区域、是否保持比例。</p>
+    <p><img src="image-render-stress-assets/wide-panorama.svg" alt="超宽 SVG"></p>
+    <p><img src="image-render-stress-assets/tall-strip.svg" alt="超长 SVG"></p>
+
+    <h2>Picture 元素</h2>
+    <picture>
+      <source srcset="image-render-stress-assets/wide-panorama.svg" type="image/svg+xml">
+      <img src="image-render-stress-assets/normal.png" alt="picture fallback">
+    </picture>
+
+    <h2>预期破损图片</h2>
+    <p>这张图片故意指向不存在的文件。它应该显示 alt 文本或破损图片标记，但不应该导致页面崩溃。</p>
+    <p><img src="image-render-stress-assets/missing image.png" alt="故意缺失的图片"></p>
+  </main>
+</body>
+</html>
