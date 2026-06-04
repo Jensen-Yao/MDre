@@ -45,7 +45,7 @@ MDre 是一款面向 Windows、Android 和 Linux x64 的轻量级 Markdown / HTM
 - [Android APK](https://github.com/Jensen-Yao/MDre/releases)
 - [Linux x64 tar.gz](https://github.com/Jensen-Yao/MDre/releases)（Linux 版本：`0.1.2`）
 
-当前公开发布版本：`0.1.22`
+当前公开发布版本：`0.1.24`、 `1.0.0` 
 
 ## 开发者
 
