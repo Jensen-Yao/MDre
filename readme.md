@@ -30,6 +30,7 @@ MDre 是一款面向 Windows、Android 和 Linux x64 的轻量级 Markdown / HTM
 - 支持 Markdown 表格、任务列表、代码高亮、公式、Mermaid 图和本地图片预览。
 - 支持 HTML 静态页面预览，并识别常见 Mermaid 片段。
 - Katex公式渲染能力提升，超过原生 VScode
+- 支持ai对文档内容进行提问分析总结等
 - 支持文档搜索、标题导航、最近文件、页面颜色切换和简单预览编辑。
 - windows 支持选中文本翻译，可配置百度翻译、DeepL 或 deepseek 兼容模型 API，apk 配合系统原生翻译能力
 - 支持 Android 文件管理器打开、系统分享打开，以及通过分享面板转发文件。
