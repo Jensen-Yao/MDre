@@ -47,6 +47,11 @@ Download the latest version from Releases:
 
 Current public release: `0.1.24` 、 `1.0.2` 
 
+## Privacy Policies
+
+- [MDre Standard Privacy Policy](MDre%20agreement.md)
+- [MDre Pro Privacy Policy](MDre%20Pro%20agreement.md)
+
 ## Developer
 
 Jense-Yao

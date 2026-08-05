@@ -47,6 +47,11 @@ MDre 是一款面向 Windows、Android 和 Linux x64 的轻量级 Markdown / HTM
 
 当前公开发布版本：`0.1.24`、 `1.0.2` 
 
+## 隐私政策
+
+- [MDre 普通版隐私政策](MDre%20agreement.md)
+- [MDre Pro 隐私政策](MDre%20Pro%20agreement.md)
+
 ## 开发者
 
 Jense-Yao
