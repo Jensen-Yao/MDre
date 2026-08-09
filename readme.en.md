@@ -1,57 +1,49 @@
 # MDre
 
-<p align="center">
-  <strong>A lightweight, direct, local-first Markdown / HTML reader for everyday documents</strong>
-</p>
+![MDre](assets/mdre-icon.png)
 
-<p align="center">
-  <a href="https://github.com/Jensen-Yao/MDre/releases"><img alt="release" src="https://img.shields.io/github/v/release/Jensen-Yao/MDre?label=release&color=2ea44f"></a>
-  <img alt="platform Android" src="https://img.shields.io/badge/platform-Android-3ddc84">
-  <img alt="platform Windows" src="https://img.shields.io/badge/platform-Windows-0078d4">
-  <img alt="platform Linux x64" src="https://img.shields.io/badge/platform-Linux%20x64-fcc624">
-  <img alt="APK size" src="https://img.shields.io/badge/APK-about%205MB-brightgreen">
-  <img alt="telemetry" src="https://img.shields.io/badge/telemetry-none-blue">
-</p>
+**A lightweight, direct, local-first Markdown and HTML reader.**
 
-<p align="center">
-  <a href="readme.md">CN 中文</a> |
-  <a href="readme.en.md">US English</a>
-</p>
+[Product homepage](https://jensen-yao.github.io/MDre/) · [Download releases](https://github.com/Jensen-Yao/MDre/releases) · [中文](readme.md)
 
 ## Product
 
-MDre is a lightweight Markdown / HTML reader for Windows, Android, and Linux x64. It is designed for quickly opening, reading, and lightly editing local documents.
+MDre is built for Windows, Android, and HarmonyOS. It opens local documents quickly and keeps reading, editing, and export in one calm workspace.
 
-The product follows common feature choices found in everyday Markdown reader software and observes only the basic reading workflow of Obsidian. MDre focuses on being lighter and more direct for daily reading.
+The product takes feature trade-offs from common Markdown readers on the market, observes only the basic reading workflow of Obsidian, and turns that direction into a lighter, more direct tool for everyday documents.
 
 ## Features
 
-- Supports opening common document formats including `.md`, `.markdown`, `.txt`, `.html` and `.htm`.
-- Features support for Markdown tables, task lists, code highlighting, mathematical formulas, Mermaid diagrams and local image preview.
-- Enables preview of static HTML pages and recognition of standard Mermaid snippets.
-- Improved KaTeX formula rendering performance, outperforming native VS Code.
-- Allows AI-powered querying, analysis and summarization of document content.
-- Comes with document search, heading navigation, recent files access, theme color switching and basic preview editing functions.
-- On Windows, selected text translation is available; APIs for Baidu Translate, DeepL and DeepSeek-compatible models can be configured, while the APK leverages native system translation capabilities.
-- Supports opening files via Android file manager and system sharing, as well as file forwarding through the share sheet.
-- Local-first design with no mandatory account registration and zero telemetry collection.
-- The Android installation package is around 5MB, ideal for lightweight daily usage.
+- Open Markdown, TXT, HTML, JSON, XML, and other common document formats.
+- Render Markdown tables, task lists, strikethrough, code highlighting, KaTeX formulas, Mermaid diagrams, and local images.
+- Preview HTML with security filtering; dangerous script, iframe, object, embed, and base tags are blocked.
+- Use heading navigation, outline folding, full-text search, highlights, replace, and recent files.
+- Edit in preview or source mode with undo, redo, save, print, and Word/PDF export.
+- Read JSON/XML in a structured mode with hierarchy folding and sorting.
+- Open documents from file managers and system share sheets on Windows, Android, and HarmonyOS.
+- Pro supports configurable AI, translation, and model APIs; basic reading does not require an account.
+- Local-first and telemetry-free for offline reading and everyday document work.
 
-## Download
+## Releases
 
-Download the latest version from Releases:
+| Platform | Version | Notes |
+| --- | --- | --- |
+| Windows | Pro 2.0.0 | Installer with file association, editing, and export |
+| Android | 2.0.0 | Standard edition without Pro API configuration |
+| Android | Pro 2.0.0 | License, AI, and translation configuration |
+| HarmonyOS | 2.0.0 | Phones, tablets, and compatible devices |
 
-- [Windows installer](https://github.com/Jensen-Yao/MDre/releases)
-- [Android APK](https://github.com/Jensen-Yao/MDre/releases)
-- [Linux x64 tar.gz](https://github.com/Jensen-Yao/MDre/releases) (Linux version: `0.1.2`)
+Download the correct build from [Releases](https://github.com/Jensen-Yao/MDre/releases). The Windows slim installer is about 92 MB; Android packages are about 6.5 MB, depending on signing and release metadata.
 
-Current public release: `0.1.24` 、 `1.0.2` 
+## Privacy
 
-## Privacy Policies
+Basic reading is local-first. MDre does not require an account and does not upload documents. When translation or AI is used, selected text or the requested prompt is sent only after the user configures a provider and starts the request.
 
-- [MDre Standard Privacy Policy](MDre%20agreement.md)
-- [MDre Pro Privacy Policy](MDre%20Pro%20agreement.md)
+- [Standard privacy policy](<MDre agreement.md>)
+- [Pro privacy policy](<MDre Pro agreement.md>)
 
 ## Developer
 
-Jense-Yao
+Jensen Yao
+
+Product homepage: [jensen-yao.github.io/MDre](https://jensen-yao.github.io/MDre/)

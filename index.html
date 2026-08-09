@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f5f7">
+  <meta name="description" content="MDre，一款轻量、直接、本地优先的 Markdown 与 HTML 阅读器。">
+  <title>MDre — 轻量 Markdown 与 HTML 阅读器</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #1d1d1f;
+      --muted: #6e6e73;
+      --quiet: #86868b;
+      --blue: #0071e3;
+      --blue-dark: #005bb5;
+      --surface: #f5f5f7;
+      --paper: #ffffff;
+      --line: rgba(29, 29, 31, .10);
+      --line-strong: rgba(29, 29, 31, .16);
+      --shadow: 0 28px 70px rgba(0, 0, 0, .12), 0 3px 12px rgba(0, 0, 0, .06);
+      --radius: 22px;
+    }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --ink: #f5f5f7;
+      --muted: #a1a1a6;
+      --quiet: #86868b;
+      --blue: #2997ff;
+      --blue-dark: #64b5ff;
+      --surface: #161617;
+      --paper: #242426;
+      --line: rgba(255, 255, 255, .11);
+      --line-strong: rgba(255, 255, 255, .18);
+      --shadow: 0 28px 70px rgba(0, 0, 0, .34), 0 3px 12px rgba(0, 0, 0, .22);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--surface);
+      color: var(--ink);
+      font: 16px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      transition: background-color .25s ease, color .25s ease;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .shell { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+    .nav-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid var(--line);
+      background: color-mix(in srgb, var(--surface) 76%, transparent);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+    }
+    .nav { min-height: 62px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 650; letter-spacing: -.02em; }
+    .brand img { width: 28px; height: 28px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 113, 227, .22); }
+    .nav-links { display: flex; align-items: center; gap: 24px; color: var(--muted); font-size: 14px; }
+    .nav-links a { transition: color .18s ease; }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--ink); }
+    .nav-actions { display: flex; align-items: center; gap: 8px; }
+    .icon-button, .text-button { border: 0; color: var(--ink); background: transparent; cursor: pointer; border-radius: 10px; transition: background-color .18s ease, transform .18s ease, color .18s ease; }
+    .icon-button { width: 36px; height: 36px; display: grid; place-items: center; font-size: 17px; }
+    .text-button { padding: 8px 10px; color: var(--muted); font-size: 14px; }
+    .icon-button:hover, .text-button:hover { background: color-mix(in srgb, var(--ink) 8%, transparent); color: var(--ink); }
+    .icon-button:active, .text-button:active, .button:active { transform: scale(.97); }
+    :focus-visible { outline: 3px solid color-mix(in srgb, var(--blue) 48%, transparent); outline-offset: 3px; }
+    .hero { padding: 100px 0 80px; text-align: center; }
+    .eyebrow { margin: 0 0 18px; color: var(--blue); font-size: 14px; font-weight: 650; letter-spacing: .02em; }
+    h1 { max-width: 820px; margin: 0 auto; font-size: clamp(42px, 7vw, 78px); line-height: 1.03; letter-spacing: -.055em; font-weight: 700; overflow-wrap: anywhere; }
+    .hero-copy { max-width: 650px; margin: 25px auto 0; color: var(--muted); font-size: clamp(18px, 2vw, 21px); line-height: 1.45; overflow-wrap: anywhere; }
+    .hero-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 20px; border-radius: 12px; border: 1px solid transparent; font-size: 15px; font-weight: 600; cursor: pointer; transition: transform .18s ease, background-color .18s ease, border-color .18s ease; }
+    .button.primary { background: var(--blue); color: white; box-shadow: 0 6px 16px rgba(0, 113, 227, .22); }
+    .button.primary:hover { background: var(--blue-dark); }
+    .button.secondary { background: color-mix(in srgb, var(--paper) 82%, transparent); border-color: var(--line-strong); color: var(--ink); }
+    .button.secondary:hover { background: var(--paper); }
+    .preview-wrap { margin-top: 72px; }
+    .platform-tabs { display: inline-flex; gap: 4px; padding: 4px; border: 1px solid var(--line); border-radius: 14px; background: color-mix(in srgb, var(--paper) 72%, transparent); }
+    .platform-tab { border: 0; border-radius: 10px; padding: 8px 14px; background: transparent; color: var(--muted); cursor: pointer; font-size: 13px; transition: background .2s ease, color .2s ease, transform .2s ease; }
+    .platform-tab[aria-selected="true"] { background: var(--paper); color: var(--ink); box-shadow: 0 2px 8px rgba(0, 0, 0, .08); }
+    .platform-tab:active { transform: scale(.97); }
+    .platform-note { min-height: 24px; margin: 14px 0 0; color: var(--quiet); font-size: 13px; }
+    .reader-window { overflow: hidden; max-width: 980px; margin: 18px auto 0; border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper); box-shadow: var(--shadow); text-align: left; transform: translateZ(0); }
+    .window-bar { display: flex; align-items: center; gap: 12px; height: 48px; padding: 0 18px; border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--surface) 70%, var(--paper)); }
+    .traffic { display: flex; gap: 6px; }
+    .traffic i { width: 10px; height: 10px; border-radius: 50%; background: var(--line-strong); }
+    .window-title { flex: 1; text-align: center; color: var(--quiet); font-size: 12px; }
+    .window-body { display: grid; grid-template-columns: 210px minmax(0, 1fr); min-height: 380px; }
+    .outline { padding: 22px 18px; border-right: 1px solid var(--line); background: color-mix(in srgb, var(--surface) 58%, var(--paper)); }
+    .outline-label { color: var(--quiet); font-size: 11px; font-weight: 650; letter-spacing: .09em; text-transform: uppercase; }
+    .outline-list { display: grid; gap: 12px; margin-top: 18px; color: var(--muted); font-size: 13px; }
+    .outline-list span:first-child { color: var(--blue); }
+    .outline-list span { display: block; padding-left: 10px; border-left: 2px solid transparent; }
+    .outline-list span:first-child { border-color: var(--blue); }
+    .document { max-width: 670px; width: 100%; padding: 44px 60px 54px; margin: 0 auto; }
+    .document-kicker { color: var(--blue); font-size: 12px; font-weight: 650; }
+    .document h2 { margin: 10px 0 12px; font-size: clamp(25px, 4vw, 38px); line-height: 1.08; letter-spacing: -.04em; }
+    .document p { margin: 0; color: var(--muted); }
+    .document-rule { height: 1px; margin: 24px 0; background: var(--line); }
+    .document-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 25px; }
+    .document-block { min-height: 92px; padding: 15px; border: 1px solid var(--line); border-radius: 12px; background: color-mix(in srgb, var(--surface) 52%, var(--paper)); }
+    .document-block strong { display: block; margin-bottom: 6px; font-size: 13px; }
+    .document-block small { color: var(--muted); font-size: 12px; }
+    .code-line { height: 7px; margin: 8px 0; border-radius: 4px; background: color-mix(in srgb, var(--blue) 32%, var(--line)); }
+    .code-line.short { width: 58%; }
+    .formula { color: var(--blue); font: 18px/1.3 Georgia, serif; }
+    .band { padding: 104px 0; border-top: 1px solid var(--line); }
+    .band-heading { max-width: 690px; }
+    .band-heading .eyebrow { margin-bottom: 12px; }
+    h2 { margin: 0; font-size: clamp(30px, 5vw, 52px); line-height: 1.06; letter-spacing: -.045em; }
+    .lead { margin: 20px 0 0; max-width: 650px; color: var(--muted); font-size: 18px; line-height: 1.5; }
+    .feature-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; margin-top: 58px; }
+    .feature { padding-top: 18px; border-top: 1px solid var(--line-strong); }
+    .feature-index { color: var(--blue); font-size: 13px; font-weight: 700; }
+    .feature h3 { margin: 20px 0 8px; font-size: 19px; letter-spacing: -.02em; }
+    .feature p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.6; }
+    .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, .8fr); align-items: center; gap: 84px; }
+    .security-panel { padding: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); box-shadow: 0 14px 36px rgba(0, 0, 0, .06); }
+    .security-panel p { margin: 0; color: var(--muted); }
+    .security-list { display: grid; gap: 14px; margin: 24px 0 0; padding: 0; list-style: none; color: var(--ink); font-size: 14px; }
+    .security-list li { display: flex; gap: 10px; align-items: flex-start; }
+    .security-list b { color: var(--blue); font-weight: 700; }
+    .download { padding-bottom: 118px; text-align: center; }
+    .download .lead { margin-left: auto; margin-right: auto; }
+    .download-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .footer { padding: 28px 0 40px; border-top: 1px solid var(--line); color: var(--quiet); font-size: 13px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 18px; }
+    @media (max-width: 820px) {
+      .shell { width: min(680px, calc(100% - 28px)); }
+      .nav { min-height: 56px; }
+      .nav-links { display: none; }
+      .hero { padding: 70px 0 60px; }
+      .preview-wrap { margin-top: 52px; }
+      .window-body { grid-template-columns: 1fr; }
+      .outline { display: none; }
+      .document { padding: 34px 24px 42px; }
+      .feature-grid { grid-template-columns: 1fr 1fr; gap: 30px 20px; }
+      .split { grid-template-columns: 1fr; gap: 35px; }
+      .band { padding: 76px 0; }
+    }
+    @media (max-width: 480px) {
+      .nav-actions .button { display: none; }
+      .hero { width: calc(100% - 28px); padding-top: 54px; }
+      .hero-copy { width: 100%; max-width: 100%; font-size: 17px; word-break: break-all; }
+      h1 { width: 100%; max-width: 100%; font-size: 38px; letter-spacing: -.045em; word-break: break-all; }
+      .platform-tabs { max-width: 100%; overflow-x: auto; }
+      .platform-tab { white-space: nowrap; }
+      .document-grid { grid-template-columns: 1fr; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav-wrap">
+    <nav class="nav shell" aria-label="主导航">
+      <a class="brand" href="#top" aria-label="MDre 首页"><img src="assets/mdre-icon.png" alt="MDre 图标"><span>MDre</span></a>
+      <div class="nav-links">
+        <a href="#features">功能</a>
+        <a href="#privacy">本地优先</a>
+        <a href="https://github.com/Jensen-Yao/MDre/releases">下载</a>
+      </div>
+      <div class="nav-actions">
+        <button class="text-button" id="languageButton" type="button">EN</button>
+        <button class="icon-button" id="themeButton" type="button" aria-label="切换外观">◐</button>
+        <a class="button primary" href="https://github.com/Jensen-Yao/MDre/releases">下载</a>
+      </div>
+    </nav>
+  </header>
+  <main id="top">
+    <section class="hero shell">
+      <p class="eyebrow" data-zh="轻量 · 直接 · 本地优先" data-en="Lightweight · Direct · Local-first">轻量 · 直接 · 本地优先</p>
+      <h1 data-zh="你的文档，应该打开就能读。" data-en="Your documents should open ready to read.">你的文档，应该打开就能读。</h1>
+      <p class="hero-copy" data-zh="MDre 是一款面向 Windows、Android 与 HarmonyOS 的 Markdown / HTML 阅读器。保留真正需要的阅读、编辑和导出能力，把注意力还给内容。" data-en="MDre is a Markdown and HTML reader for Windows, Android, and HarmonyOS. It keeps the reading, editing, and export tools that matter, so your attention stays with the content.">MDre 是一款面向 Windows、Android 与 HarmonyOS 的 Markdown / HTML 阅读器。保留真正需要的阅读、编辑和导出能力，把注意力还给内容。</p>
+      <div class="hero-actions"><a class="button primary" href="https://github.com/Jensen-Yao/MDre/releases">获取 MDre</a><a class="button secondary" href="#features">了解功能</a></div>
+      <div class="preview-wrap" aria-label="MDre 产品预览">
+        <div class="platform-tabs" role="tablist" aria-label="平台预览">
+          <button class="platform-tab" role="tab" aria-selected="true" data-platform="Windows">Windows</button>
+          <button class="platform-tab" role="tab" aria-selected="false" data-platform="Android">Android</button>
+          <button class="platform-tab" role="tab" aria-selected="false" data-platform="HarmonyOS">HarmonyOS</button>
+        </div>
+        <p class="platform-note" id="platformNote">Windows Pro · 适合长文阅读、编辑和文件关联</p>
+        <div class="reader-window">
+          <div class="window-bar"><div class="traffic" aria-hidden="true"><i></i><i></i><i></i></div><div class="window-title"><span id="windowPlatform">MDre · Windows</span> · getting-started.md</div><span aria-hidden="true">⌕</span></div>
+          <div class="window-body">
+            <aside class="outline"><div class="outline-label">Outline</div><div class="outline-list"><span>开始使用</span><span>阅读与编辑</span><span>公式与图表</span><span>导出与分享</span></div></aside>
+            <article class="document">
+              <div class="document-kicker">MDre / getting-started.md</div><h2>把内容留在中心。</h2><p>打开本地文件，专注阅读；需要时，再进入编辑、搜索或导出。</p><div class="document-rule"></div>
+              <div class="document-grid">
+                <div class="document-block"><strong>Markdown</strong><div class="code-line"></div><div class="code-line short"></div><small>标题、表格、任务列表与代码高亮</small></div>
+                <div class="document-block"><strong>公式</strong><div class="formula">∫₀∞ e⁻ˣ² dx = √π / 2</div><small>KaTeX 增强渲染</small></div>
+                <div class="document-block"><strong>Mermaid</strong><div class="code-line"></div><div class="code-line short"></div><small>让结构和流程直接可见</small></div>
+                <div class="document-block"><strong>本地优先</strong><div class="code-line"></div><div class="code-line short"></div><small>无账号、无遥测、离线可读</small></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="band" id="features">
+      <div class="shell">
+        <div class="band-heading"><p class="eyebrow">What matters</p><h2>复杂格式，保持清楚。</h2><p class="lead">从一篇 Markdown 到一份 HTML、JSON 或 XML，MDre 用同一套安静、可扫描的阅读体验承接日常工作。</p></div>
+        <div class="feature-grid">
+          <article class="feature"><span class="feature-index">01</span><h3>打开即读</h3><p>支持 Markdown、HTML、TXT、JSON 与 XML，文件管理器和分享面板都能直接交给 MDre。</p></article>
+          <article class="feature"><span class="feature-index">02</span><h3>结构可见</h3><p>标题导航、折叠层级、搜索高亮和结构化模式，让长文与复杂数据有清晰的方向感。</p></article>
+          <article class="feature"><span class="feature-index">03</span><h3>表达完整</h3><p>公式、图片、代码、表格和 Mermaid 图表保持在同一份文档里，不必切换工具确认结果。</p></article>
+          <article class="feature"><span class="feature-index">04</span><h3>需要时再编辑</h3><p>预览和源码之间自由切换，支持基础格式编辑、搜索替换、保存、打印和 Word/PDF 导出。</p></article>
+        </div>
+      </div>
+    </section>
+    <section class="band" id="privacy">
+      <div class="shell split">
+        <div><p class="eyebrow">Quiet by design</p><h2>你的文件，留在你的设备里。</h2><p class="lead">MDre 以本地文件为中心。阅读不要求账号，基础渲染不要求网络，界面也不会用无关的通知打断你。</p></div>
+        <div class="security-panel"><p>产品原则</p><ul class="security-list"><li><b>●</b><span>本地优先：文件和阅读状态由用户掌握。</span></li><li><b>●</b><span>无遥测：不会为了阅读行为建立画像。</span></li><li><b>●</b><span>可选择的 AI：只有配置后才调用外部接口。</span></li><li><b>●</b><span>跨平台：Windows、Android、HarmonyOS 共用阅读体验。</span></li></ul></div>
+      </div>
+    </section>
+    <section class="band download" id="download">
+      <div class="shell"><p class="eyebrow">Start with your documents</p><h2>现在就打开一篇。</h2><p class="lead">前往 GitHub Releases 获取 Windows、Android 与 HarmonyOS 版本。</p><div class="download-actions"><a class="button primary" href="https://github.com/Jensen-Yao/MDre/releases">查看全部版本</a><a class="button secondary" href="https://github.com/Jensen-Yao/MDre">查看 GitHub</a></div></div>
+    </section>
+  </main>
+  <footer class="footer"><div class="shell footer-inner"><span>MDre · Jensen Yao</span><span>轻量 Markdown / HTML 阅读器</span></div></footer>
+  <script>
+    const root = document.documentElement;
+    const themeButton = document.getElementById('themeButton');
+    const languageButton = document.getElementById('languageButton');
+    const platformNote = document.getElementById('platformNote');
+    const windowPlatform = document.getElementById('windowPlatform');
+    const notes = { Windows: 'Windows Pro · 适合长文阅读、编辑和文件关联', Android: 'Android · 适合随身阅读、分享和快速编辑', HarmonyOS: 'HarmonyOS · 适合手机、平板和可折叠设备' };
+    const notesEn = { Windows: 'Windows Pro · Long-form reading, editing, and file association', Android: 'Android · Reading, sharing, and quick edits on the go', HarmonyOS: 'HarmonyOS · Phones, tablets, and foldable devices' };
+    let language = 'zh';
+    function setTheme(theme) { root.dataset.theme = theme; localStorage.setItem('mdre-theme', theme); themeButton.textContent = theme === 'dark' ? '☼' : '◐'; themeButton.setAttribute('aria-label', theme === 'dark' ? '切换到浅色外观' : '切换到深色外观'); }
+    setTheme(localStorage.getItem('mdre-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+    themeButton.addEventListener('click', () => setTheme(root.dataset.theme === 'dark' ? 'light' : 'dark'));
+    document.querySelectorAll('[data-platform]').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('[data-platform]').forEach((item) => item.setAttribute('aria-selected', item === tab ? 'true' : 'false'));
+        const platform = tab.dataset.platform;
+        platformNote.textContent = language === 'zh' ? notes[platform] : notesEn[platform];
+        windowPlatform.textContent = 'MDre · ' + platform;
+      });
+    });
+    languageButton.addEventListener('click', () => {
+      language = language === 'zh' ? 'en' : 'zh';
+      document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en';
+      languageButton.textContent = language === 'zh' ? 'EN' : '中文';
+      document.querySelectorAll('[data-zh][data-en]').forEach((node) => { node.textContent = node.dataset[language]; });
+      const selected = document.querySelector('[data-platform][aria-selected="true"]')?.dataset.platform || 'Windows';
+      platformNote.textContent = language === 'zh' ? notes[selected] : notesEn[selected];
+    });
+  </script>
+</body>
+</html>
